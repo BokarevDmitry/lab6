@@ -9,7 +9,8 @@ import java.util.*;
 
 public class StorageActor extends AbstractActor {
     private final LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
-    private Map<String, Long> testResults = new HashMap<>();
+    ArrayList<String> storage = new ArrayList<>();
+    Random random = new Random();
 
     public StorageActor() {
     }
@@ -31,20 +32,21 @@ public class StorageActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(TestWithResult.class, test -> {
-                        log.info("REQUEST: store test results of  - " + test.getUrl());
-                        testResults.put(test.getUrl().getUrl(), test.getResult());
+                .match(PutMessage.class, m -> {
+                        log.info("RECEIVED SERVERS: " + m.servers.toString());
+                        this.storage.clear();
+                        this.storage.addAll(m.getServers());
                 })
+                .match(GetMessage.class, m -> {
+                    log.info("GETMESSAGE REQUEST");
+                    getSender().tell(new ReturnMessage(storage.get(random.nextInt(storage.size()))),
+                            ActorRef.noSender());
 
-                .match(UrlWithCount.class, r -> {
-                    log.info("REQUEST: tests for package - " + r.getUrl() + " " + r.getCount());
-                   // log.info(Integer.toString(testResults.size()));
-                    System.out.println(testResults.size());
-                    Long l = testResults.get(r.getUrl());
-                    TestWithResult t = new TestWithResult(r, l);
-                    getSender().tell(t, ActorRef.noSender());
                 })
-
+                .match(DeleteMessage.class, m -> {
+                    log.info("DELETE SERVERS: " + m.getServer());
+                    this.storage.remove(m.getServer());
+                })
                 .build();
     }
 }
