@@ -34,7 +34,10 @@ public class AnonymousServer {
         return route (
                 get (() -> parameter(URL, url ->
                             parameter(COUNT, count ->
-                            )))
+                                    handleGetRequest(url, Integer.parseInt(count))
+                                )
+                            )
+                )
         );
     }
 
@@ -61,7 +64,7 @@ public class AnonymousServer {
 
     private static Response BadDirection (Response res, Throwable ex, String z) {
         if (ex instanceof ConnectException) {
-            storageActor.tell(new DeleteMessage(), ActorRef.noSender());
+            storageActor.tell(new DeleteMessage(z), ActorRef.noSender());
         }
         return  res;
     }
