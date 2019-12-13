@@ -13,7 +13,9 @@ import akka.http.javadsl.server.AllDirectives;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
+import scala.Int;
 //import scala.concurrent.Future;
 import java.io.IOException;
 import java.util.Optional;
@@ -27,13 +29,20 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 
 public class App extends AllDirectives {
+    private static String CONN = "127.0.0.1:2181";
+    private static String STRINGPATH = "/servers";
+    private static String LOCALHOST = "loacalhost";
+    private static int TIMEOUT = 3000;
+
     public static void main(String[] args) throws Exception, InterruptedException, IOException {
+        String host = args[0];
+        Integer port = Integer.parseInt(args[1]);
+        final ZooKeeper zoo = new ZooKeeper(CONN, TIMEOUT, err->log.info(err.toString()) )
+
         ActorSystem system = ActorSystem.create("routes");
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        AsyncHttpClient asyncHttpClient = asyncHttpClient();
 
-        RouterActor router = new RouterActor(system, materializer, asyncHttpClient);
 
         Flow<HttpRequest, HttpResponse, NotUsed> routeFlow =
                 router.createRoute();
