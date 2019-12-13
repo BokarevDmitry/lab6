@@ -47,7 +47,8 @@ public class AnonymousServer {
             res = fetch(asyncHttpClient.prepareGet(url).build());
         } else {
             System.out.println("COUNT = " + count);
-            res = Redirect(url, count--);
+            count--;
+            res = Redirect(url, count);
         }
         return completeOKWithFutureString(res.thenApply(Response::getResponseBody));
     }
