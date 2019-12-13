@@ -39,8 +39,10 @@ public class StorageActor extends AbstractActor {
                 })
                 .match(GetMessage.class, m -> {
                     log.info("GETMESSAGE REQUEST");
+                    Integer a = random.nextInt(storage.size());
+                    if (a==0) a+=1;
                     System.out.println("storage-size = " + storage.size());
-                    getSender().tell(new ReturnMessage(storage.get(random.nextInt(storage.size()))),
+                    getSender().tell(new ReturnMessage(storage.get(a)),
                             ActorRef.noSender());
 
                 })
