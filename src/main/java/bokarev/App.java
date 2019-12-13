@@ -29,7 +29,7 @@ public class App extends AllDirectives {
     static Logger log = Logger.getLogger(App.class.getName());
     private static String CONN = "127.0.0.1:2181";
     private static String STRINGPATH = "/servers";
-    private static String LOCALHOST = "loacalhost";
+    private static String LOCALHOST = "localhost";
     private static int TIMEOUT = 3000;
 
     public static void main(String[] args) throws Exception, InterruptedException, IOException {
