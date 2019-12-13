@@ -44,10 +44,13 @@ public class App extends AllDirectives {
 
         ActorRef storageActor = system.actorOf (StorageActor.props(), "Storage-Actor");
 
+        Handler handler = new Handler(zoo, storageActor, STRINGPATH);
+        handler.createServer(LOCALHOST+port, host, port);
 
+        AnonymousServer server = new AnonymousServer(storageActor, httpClient, zoo);
 
-
-        Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = router.createRoute();
+        Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = server.createRoute()
+                .flow(system, materializer);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(host, port),
