@@ -50,7 +50,9 @@ public class AnonymousServer {
 
     public static  CompletionStage<Response> Redirect(String url, Integer count) {
         return Patterns.ask(storageActor, new GetMessage(), Duration.ofMillis(3000))
-                .thenApply(o -> ((ReturnMessage)o))
+                .thenApply(o -> ((ReturnMessage)o).getServer())
+                .thenCompose(z-> fetch(createServerRequest(getServerUrl(z), url, count))
+                .handle((res, ex) -> BadDirection(res, ex, z)));
     }
 
     public static CompletionStage<Response> fetch(Request req) {
@@ -64,16 +66,16 @@ public class AnonymousServer {
         return  res;
     }
 
-    private static String getServerUrl(String node) throws KeeperException, InterruptedException {
-        return new String(zooKeeper.getData(node, false, null));
+    private static String getServerUrl(String node) {
+        try {
+            return new String(zooKeeper.getData(node, false, null));
+        } catch (KeeperException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Request createServerRequest(String serverUrl, String url, Integer count) {
         return asyncHttpClient.prepareGet(serverUrl).addQueryParam(URL, url)
                 .addQueryParam(COUNT, Integer.toString(count)).build();
     }
-
-
-
-
 }
