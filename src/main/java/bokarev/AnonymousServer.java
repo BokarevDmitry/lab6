@@ -7,9 +7,17 @@ import org.asynchttpclient.AsyncHttpClient;
 public class AnonymousServer {
     private static String URL = "url";
     private static String COUNT = "count";
-    static AsyncHttpClient asyncHttpClient;
-    static ActorRef storageActor;
-    static ZooKeeper zooKeeper;
+    AsyncHttpClient asyncHttpClient;
+    ActorRef storageActor;
+    ZooKeeper zooKeeper;
 
-    public AnonymousServer()
+    public AnonymousServer(ActorRef storageActor, AsyncHttpClient asyncHttpClient, ZooKeeper zooKeeper) {
+        this.asyncHttpClient = asyncHttpClient;
+        this.storageActor = storageActor;
+        this.zooKeeper = zooKeeper;
+    }
+
+    public static Route c
+
+
 }
