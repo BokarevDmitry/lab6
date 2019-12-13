@@ -45,35 +45,6 @@ public class App extends AllDirectives {
 
         System.out.println("Server online at http://localhost:8080/");
 
-        //AsyncHttpClient asyncHttpClient = asyncHttpClient();
-        //AsyncHttpClient client = Dsl.asyncHttpClient();
+
     }
 }
-
-
-    //AsyncHttpClient c = asyncHttpClient(config().setProxyServer(proxyServer("127.0.0.1", 38080)));
-
-
-
-                                        /*{
-                                            AsyncHttpClient asyncHttpClient = asyncHttpClient();
-                                            Future<Response> whenResponse = asyncHttpClient.prepareGet("http://www.rambler.com").execute();
-                                            try {
-                                                Response response = whenResponse.get();
-                                                return complete(response.getResponseBody());
-                                            } catch (InterruptedException | ExecutionException e) {
-                                                e.printStackTrace();
-                                            }
-                                            return complete("fault");
-
-                                            //return complete("Test started!");
-                                        }*/
-                                        /*
-                                        parameter("packageId", packageId -> {
-                                            Future<Object> future = Patterns.ask(routerActor, new TestGetter(Integer.parseInt(packageId)), 5000);
-                                            return completeOKWithFuture(future, Jackson.marshaller());
-                                        })
-                                        */
-                                //)));
-//    }
-//}
