@@ -17,7 +17,7 @@ public class Handler {
         this.zooKeeper = zooKeeper;
         this.storageActor = storageActor;
         this.path = path;
-
+        checkChildren(null);
     }
 
     public void checkChildren (WatchedEvent e) {
