@@ -1,15 +1,15 @@
 package bokarev;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PutMessage {
-    Arrayst<String> servers;
+    List<String> servers;
 
-    public PutMessage(ArrayList<String> servers) {
+    public PutMessage(List<String> servers) {
         this.servers = servers;
     }
 
-    public ArrayList<String> getServers() {
+    public List<String> getServers() {
         return servers;
     }
 }

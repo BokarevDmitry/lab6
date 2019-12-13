@@ -1,9 +1,8 @@
 package bokarev;
 
 import akka.actor.ActorRef;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.ZooKeeper;
+import akka.dispatch.sysmsg.Watch;
+import org.apache.zookeeper.*;
 
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -27,9 +26,22 @@ public class Handler {
             .map(s-> path + "/" + s)
             .collect(Collectors.toList())), ActorRef.noSender()
             );
-        } catch (KeeperException | InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (KeeperException | InterruptedException err) {
+            throw new RuntimeException(err);
         }
+    }
+
+    public static void RemoveWatches() throws Exception {
+        zooKeeper.removeAllWatches(path, Watcher.WatcherType.Any, true);
+    }
+
+    public void createServer (String name, String host, int port) throws Exception {
+        String servPath = zooKeeper.create(
+                path + "/" + name,
+                (host + ":" + port).getBytes(),
+                ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL);
+        logger.info("server path: " + servPath);
     }
 
 
