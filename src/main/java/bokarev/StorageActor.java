@@ -9,7 +9,7 @@ import java.util.*;
 
 public class StorageActor extends AbstractActor {
     private final LoggingAdapter log = Logging.getLogger(getContext().getSystem(), this);
-    ArrayList<String> storage = new ArrayList<>();
+    List<String> storage = new ArrayList<>();
     Random random = new Random();
 
     public StorageActor() {
