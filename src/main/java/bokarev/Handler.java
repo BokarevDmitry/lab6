@@ -31,10 +31,6 @@ public class Handler {
         }
     }
 
-    public static void RemoveWatches() throws Exception {
-        zooKeeper.removeAllWatches(path, Watcher.WatcherType.Any, true);
-    }
-
     public void createServer (String name, String host, int port) throws Exception {
         String servPath = zooKeeper.create(
                 path + "/" + name,
