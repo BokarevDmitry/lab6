@@ -19,11 +19,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
 
-
-
-
 import static org.asynchttpclient.Dsl.asyncHttpClient;
-
 
 public class App extends AllDirectives {
     static Logger log = Logger.getLogger(App.class.getName());
