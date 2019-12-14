@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbc04df3-b381-4be9-8318-ef3752d6dfba" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/bokarev/App.java" afterPath="$PROJECT_DIR$/src/main/java/bokarev/App.java" />
-    </list>
+    <list default="true" id="bbc04df3-b381-4be9-8318-ef3752d6dfba" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
