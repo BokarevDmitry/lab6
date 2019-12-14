@@ -39,6 +39,4 @@ public class Handler {
                 CreateMode.EPHEMERAL);
         logger.info("server path: " + servPath);
     }
-
-
 }
