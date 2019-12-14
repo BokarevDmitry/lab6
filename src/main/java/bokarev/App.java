@@ -40,8 +40,8 @@ public class App extends AllDirectives {
 
         ActorRef storageActor = system.actorOf (StorageActor.props(), "Storage-Actor");
 
-        Handler handler = new Handler(zoo, storageActor, STRINGPATH);
-        handler.createServer(LOCALHOST+port, host, port);
+        ZooHandler zooHandler = new ZooHandler(zoo, storageActor, STRINGPATH);
+        zooHandler.createServer(LOCALHOST+port, host, port);
 
         AnonymousServer server = new AnonymousServer(storageActor, httpClient, zoo);
 

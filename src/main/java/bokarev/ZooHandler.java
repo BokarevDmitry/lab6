@@ -1,19 +1,18 @@
 package bokarev;
 
 import akka.actor.ActorRef;
-import akka.dispatch.sysmsg.Watch;
 import org.apache.zookeeper.*;
 
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class Handler {
-    static final Logger logger = Logger.getLogger(Handler.class.getName());
+public class ZooHandler {
+    static final Logger logger = Logger.getLogger(ZooHandler.class.getName());
     static ZooKeeper zooKeeper;
     static String path;
     ActorRef storageActor;
 
-    Handler(ZooKeeper zooKeeper, ActorRef storageActor, String path) {
+    ZooHandler(ZooKeeper zooKeeper, ActorRef storageActor, String path) {
         this.zooKeeper = zooKeeper;
         this.storageActor = storageActor;
         this.path = path;
